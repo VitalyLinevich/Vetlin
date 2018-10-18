@@ -1,0 +1,17 @@
+{
+    "name": "vetal/framework",
+    "authors": [
+        {
+            "name": "Vitaly Linevich",
+            "email": "linevich.dev@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Engine\\": "engine",
+            "Cms\\": "cms",
+            "Engine\\DI\\": "engine/DI"
+        }
+    }
+}
