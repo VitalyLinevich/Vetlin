@@ -1,11 +1,11 @@
 <?php
 
-namespace Cms\Controller;
+namespace frontend\controllers;
 
-use Engine\BaseController\CmsController;
+use Engine\BaseController\Controller;
 
 
-class HomeController extends CmsController {
+class HomeController extends Controller {
 
     public function index() {
         echo "Hello! It is Vetlin!";

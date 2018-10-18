@@ -29,13 +29,16 @@ class CMS {
 
             $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUri());
 
+            $namespace = '\\Frontend\\Controllers\\';
+
             if ($routerDispatch == null) {
                 $routerDispatch = new DispatchedRoute('ErrorController:page404');
+                $namespace = '\\Engine\\BaseController\\';
             }
 
             list($class, $action) = explode(':', $routerDispatch->getController(), 2);
 
-            $controller = '\\Cms\\Controller\\' . $class;
+            $controller = $namespace . $class;
             $parameters = $routerDispatch->getParameters();
             call_user_func_array([new $controller($this->di), $action], $parameters);
 

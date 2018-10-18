@@ -4,16 +4,16 @@ namespace Engine\BaseController;
 
 use Engine\DI\DI;
 
-abstract class Controller {
 
-    protected $di;
-
-    protected $db;
-
+class Controller extends BaseController {
 
     public function __construct(DI $di) {
+        parent::__construct($di);
+    }
 
-        $this->di = $di;
+    public function header() {
+
+
 
     }
 
