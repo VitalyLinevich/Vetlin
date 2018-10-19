@@ -13,7 +13,11 @@ class HomeController extends Controller {
 
     public function news() {
 
-        echo "News Page";
+        $hello = 'Hello Vetlin';
+
+        $this->render('index', [
+            'text' => $hello,
+        ]);
 
     }
 

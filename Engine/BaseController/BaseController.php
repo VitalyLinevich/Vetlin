@@ -3,6 +3,7 @@
 namespace Engine\BaseController;
 
 use Engine\DI\DI;
+use Engine\View\View;
 
 abstract class BaseController {
 
@@ -10,10 +11,20 @@ abstract class BaseController {
 
     protected $db;
 
+    // object \Engine\View\View
+    protected $view;
 
-    public function __construct(DI $di) {
+    // Name of class controller
+    protected $class;
+
+
+    public function __construct(DI $di, $class) {
 
         $this->di = $di;
+
+        $this->class = $class;
+
+        $this->view = new View($class);
 
     }
 

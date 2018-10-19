@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+define('APP', 'Frontend');
+
 use Engine\CMS;
 use Engine\DI\DI;
 

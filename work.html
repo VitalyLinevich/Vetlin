@@ -1,0 +1,39 @@
+1) Index.php подключает \engine\bootstrap.php
+2) bootstrap.php запускает приложение:
+    2.1) Подключает \vendor\autoload.php (Composer)
+    2.2) Создает object  \engine\di\di
+    2.3) Подключаем Сервисы в DI
+        2.3.1) Подключаем \config\service
+        2.3.2) Перебираем в foreach namespace каждого сервиса
+        2.3.3) Создаем объект каждого сервиса и передаем в конструктор object \engine\di.
+            Класс \engine\service\AbstractService получает object и записывает его в свойство $di
+        2.3.4) Инициализируем каждый сервис, добавляя его название и object в своство $container \engine\di\di.
+    2.4) Создаем object класса \engine\cms и передаем ему в конструктор object \engine\di\di.
+    2.5) Запускаем приложение вызвав method класса \engine\cms run().
+
+Method run():
+0) В \engine\cms два свойства: $di/$router. $di - object \engine\di\di; $router - object \engine\core\router\router
+1) C помощью метода add() \engine\core\router\router добавляем урлы в свойство класса \engine\core\router\router $routes
+2) Вызываем метод класса \engine\core\router\router dispatch():
+    2.1) Передаем ему два параметра c помощью helper \engine\helper\common. 1 - getMethod(), 2 - getPathUri()
+    2.2) Метод dispatch вызвает method этого же класса - getDispatcher(), который:
+        2.2.1) Создает в себе object класса \engine\core\router\urlDispatcher
+        2.2.2) Перебирает свойство $routes, и передает их методу register() класса \engine\core\router\urlDispatcher,
+            который записывает переданные парамеры в свойство этого же класса $routes.
+        2.2.3) Возразает object класса \engine\core\router\urlDispatcher
+    2.3) Вызываем метод dispatch() класса \engine\core\router\urlDispatcher, и передаем в него два параметра - 2.1:
+        2.3.1) Метод dispatch() получает роуты из свойства $routes
+        2.3.2) Проверяет есть в роутах тот, который запросил пользователь, если да,
+            то создает object класса engine\core\router\dispatchedRoute, и передает ему название контроллера и метода,
+            который нужно вызвать.
+        2.3.3) Если такого роута не существует, вызывает метод doDispatch(), и передает ему два параметра - 2.1
+            2.3.3.1) Метод doDispatch() перебирает все записанные урлы как $route => $controller
+            2.3.3.2) Ищем в запрошенном пользователем uri совпадения с $route
+            2.3.3.3) Если совпадения есть, возвращаем object класса \engine\core\router\dispatchedRoute
+        2.3.4) Метод dispatch() в любом случае возвращает object класса \engine\core\router\dispatchedRoute
+    2.4) В перменную $routerDispatch возвращается object класса engine\core\router\dispatchedRoute
+3) Если перменная $routerDispatch пуста, вызываем метод page404 класса \engine\baseController\ErrorController.
+4) Создаем две переменные - $class\$action,
+    получаем данные с помощью \engine\core\router\dispatchedRoute::getController()
+5) Добавляем к контроллеру namespace и в $parameters - параметры  \engine\core\router\dispatchedRoute::getParameters()
+6) Вызываем нужный метод, нужного контроллера.

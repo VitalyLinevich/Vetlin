@@ -3,6 +3,7 @@
 
 namespace Engine\Service;
 
+
 abstract class AbstractProvider {
 
     protected $di;
@@ -12,6 +13,7 @@ abstract class AbstractProvider {
         $this->di = $di;
 
     }
+
 
     abstract function init();
 

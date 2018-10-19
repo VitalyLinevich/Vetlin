@@ -21,6 +21,7 @@ class UrlDispatcher {
         'any' => '[a-zA-Z0-9\.\-_%]+',
     ];
 
+
     public function addPattern($key, $pattern) {
 
         $this->patterns[$key] = $pattern;
