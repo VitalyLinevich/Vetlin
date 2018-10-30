@@ -8,16 +8,14 @@ use Engine\BaseController\Controller;
 class HomeController extends Controller {
 
     public function index() {
-        echo "Hello! It is Vetlin!";
+        $this->view->title = 'Vetlin';
+
+        $this->view->newCssFile('vetlin.css');
+
+        $this->render('index');
     }
 
     public function news() {
-
-        $hello = 'Hello Vetlin';
-
-        $this->render('index', [
-            'text' => $hello,
-        ]);
 
     }
 
